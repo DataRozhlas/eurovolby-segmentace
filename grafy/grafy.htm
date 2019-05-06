@@ -1,0 +1,582 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1'>
+		<title>Highcharts Example</title>
+
+		<style type='text/css'>
+
+		</style>
+	</head>
+	<body>
+
+<wide><div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="obrance1"></div>
+    <div class="chart small" id="obrance2"></div>
+</div></wide>
+<wide><div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="obrance3"></div>
+    <div class="chart small" id="obrance4"></div>
+</div></wide>
+
+<div style="width: 100%; height: 400px;" id="obrancepref"></div>
+
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+<script type='text/javascript' src='https://code.highcharts.com/highcharts.js'></script>
+<script type='text/javascript' src='https://code.highcharts.com/highcharts-more.js'></script>
+
+<style>
+
+#chart {
+    max-width: 100%;
+    margin: 1em auto;
+}
+
+.small {
+    min-width: 310px;
+    width: 25%;
+    height: 350px;
+    margin: 1em auto;
+    float: left;
+}
+
+</style>
+
+<script type='text/javascript'>
+
+var barvy =['#333']
+// původní skautské ['#EA614A','#ECA038','#A38456','#008836','#20649B','#6B96CA','#A87A93','#D19C95'];
+
+var vsichni1_kat = ['Pro přijetí eura','Czexit – pro referendum','Czexit – pro odchod','Prospěch osobní','Prospěch pro region','Prospěch pro ČR','Prospěch pro ČR za 20 let'];
+
+var vsichni2_kat = ['Profit z globalizace','Obavy z migrace','Vyšší kulturní kapitál','Vyšší sociální kapitál','Chudoba','Autoritářství','Náchylnost k populismu','Nadějná budoucnost společnosti'];
+
+var vsichni3_kat = ['Evropská unie','Demokracie v ČR','Vláda ČR','Prezident ČR ','Zastupitelstvo obce','Zastupitelstvo kraje'];
+
+var vsichni4_kat = ['EU příliš zasahuje do věcí ČR','EU zvyšuje vymahatelnost práva','Evropská integrace se má prohlubovat','Výhodou EU je studium/práce v zahraničí'];
+
+var vsichni_data = [20,51,32,41,54,54,43,32,36,47,58,44,44,50,50,34,46,31,46,68,57,69,40,45,78];
+
+var obrance_data = [4,87,80,2,20,12,3,8,52,40,63,47,60,71,31,6,28,39,64,66,51,96,4,10,65];
+
+var pesimista_data = [0,76,94,5,7,6,5,5,88,33,55,61,74,84,14,6,23,24,70,47,39,91,5,6,41];
+
+var liberal_data = [72,15,5,86,85,90,89,69,6,69,76,32,19,18,74,79,60,26,21,75,66,15,82,87,93];
+
+var uzitkar_data = [10,52,11,62,81,85,70,44,31,44,49,44,56,65,55,48,62,34,49,75,71,69,72,69,94];
+
+var vylouceny_data = [17,61,39,22,27,23,23,23,45,29,37,49,38,49,46,34,45,26,49,61,53,66,27,32,63];
+
+var reformista_data = [12,24,7,62,82,85,63,39,18,63,70,32,19,17,60,40,48,22,25,74,59,60,48,53,88];
+
+var pragmatik_data = [30,55,15,40,61,62,32,29,32,41,59,55,56,54,58,20,49,43,52,70,55,87,29,50,93];
+
+var vsichni1_data = vsichni_data.slice(0, 7);
+
+var vsichni2_data = vsichni_data.slice(7, 15);
+
+var vsichni3_data = vsichni_data.slice(15, 21);
+
+var vsichni4_data = vsichni_data.slice(21, 25);
+
+var obrance1_data = obrance_data.slice(0, 7);
+
+var obrance2_data = obrance_data.slice(7, 15);
+
+var obrance3_data = obrance_data.slice(15, 21);
+
+var obrance4_data = obrance_data.slice(21, 25);
+
+var pesimista1_data = pesimista_data.slice(0, 7);
+
+var pesimista2_data = pesimista_data.slice(7, 15);
+
+var pesimista3_data = pesimista_data.slice(15, 21);
+
+var pesimista4_data = pesimista_data.slice(21, 25);
+
+var liberal1_data = liberal_data.slice(0, 7);
+
+var liberal2_data = liberal_data.slice(7, 15);
+
+var liberal3_data = liberal_data.slice(15, 21);
+
+var liberal4_data = liberal_data.slice(21, 25);
+
+var uzitkar1_data = uzitkar_data.slice(0, 7);
+
+var uzitkar2_data = uzitkar_data.slice(7, 15);
+
+var uzitkar3_data = uzitkar_data.slice(15, 21);
+
+var uzitkar4_data = uzitkar_data.slice(21, 25);
+
+var vylouceny1_data = vylouceny_data.slice(0, 7);
+
+var vylouceny2_data = vylouceny_data.slice(7, 15);
+
+var vylouceny3_data = vylouceny_data.slice(15, 21);
+
+var vylouceny4_data = vylouceny_data.slice(21, 25);
+
+var reformista1_data = reformista_data.slice(0, 7);
+
+var reformista2_data = reformista_data.slice(7, 15);
+
+var reformista3_data = reformista_data.slice(15, 21);
+
+var reformista4_data = reformista_data.slice(21, 25);
+
+var pragmatik1_data = pragmatik_data.slice(0, 7);
+
+var pragmatik2_data = pragmatik_data.slice(7, 15);
+
+var pragmatik3_data = pragmatik_data.slice(15, 21);
+
+var pragmatik4_data = pragmatik_data.slice(21, 25);
+
+var vsichnipref_kat = ['ANO','ČSSD','KSČM','ODS','TOP 09','SPD','Piráti','KDU-ČSL','STAN','Jiná','Neví'];
+
+var vsichnipref_data = [21,4,5,10,4,7,10,4,5,5,27];
+
+var obrancepref_data = [29,4,9,5,1,14,4,1,3,5,26];
+
+var pesimistapref_data = [19,1,12,4,0,23,1,2,3,1,35];
+
+var liberalpref_data = [17,1,0,18,14,0,19,7,10,6,8];
+
+var uzitkarpref_data = [27,7,5,9,2,5,7,4,5,3,27];
+
+var vyloucenypref_data = [16,3,6,3,5,5,8,3,1,7,44];
+
+var reformistapref_data = [14,5,5,17,3,2,16,4,5,4,26];
+
+var pragmatikpref_data = [27,5,3,7,3,7,9,4,4,6,25];
+
+Highcharts.chart('obrance1', {
+    chart: {
+        polar: true,
+        type: 'line'
+    },
+    title: {
+        text: 'Vztah k EU',
+        x: 0
+    },
+    pane: {
+        size: '80%'
+    },
+    xAxis: {
+        title: {
+            text: ''
+        },
+        categories: vsichni1_kat,
+        tickmarkPlacement: 'on',
+        lineWidth: 0
+    },
+    yAxis: {
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        },
+        gridLineInterpolation: 'polygon',
+        lineWidth: 0,
+        min: 0,
+        max: 100
+    },
+    tooltip: {
+        pointFormat: '<b>{point.series.name}: {point.y} %</b><br/>',
+        shared: true
+    },
+    exporting: {
+        enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            marker: {
+                symbol: 'circle'
+            },
+            events: {
+                legendItemClick: function (event) {
+                    var obr1 = $('#obrance1').highcharts(),
+                        series = obr1.get(this.options.id)
+
+                    if (series) {
+                        if (this.visible) {
+                            series.show();
+                        } else {
+                            series.hide();
+                        }
+                    }
+
+                    var obr2 = $('#obrance2').highcharts(),
+                        series = obr2.get(this.options.id)
+
+                    if (series) {
+                        if (this.visible) {
+                            series.hide();
+                        } else {
+                            series.show();
+                        }
+                    }
+
+                    var obr3 = $('#obrance3').highcharts(),
+                        series = obr3.get(this.options.id)
+
+                    if (series) {
+                        if (this.visible) {
+                            series.hide();
+                        } else {
+                            series.show();
+                        }
+                    }
+
+                    var obr4 = $('#obrance4').highcharts(),
+                        series = obr4.get(this.options.id)
+
+                    if (series) {
+                        if (this.visible) {
+                            series.hide();
+                        } else {
+                            series.show();
+                        }
+                    }
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Obránce',
+        id: 'obr',
+        data: obrance1_data,
+        pointPlacement: 'on',
+        color: barvy[0]
+    }, {
+        name: 'Populace',
+        id: 'vsi',
+        data: vsichni1_data,
+        pointPlacement: 'on',
+        color: '#ccc',
+        dashStyle: 'dot'
+    }],
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                },
+                pane: {
+                    size: '70%'
+                }
+            }
+        }]
+    }
+});
+
+Highcharts.chart('obrance2', {
+    chart: {
+        polar: true,
+        type: 'line'
+    },
+    title: {
+        text: 'Postoje a kapitál',
+        x: 0
+    },
+    pane: {
+        size: '80%'
+    },
+    xAxis: {
+        title: {
+            text: ''
+        },
+        categories: vsichni2_kat,
+        tickmarkPlacement: 'on',
+        lineWidth: 0
+    },
+    yAxis: {
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        },
+        gridLineInterpolation: 'polygon',
+        lineWidth: 0,
+        min: 0,
+        max: 100
+    },
+    tooltip: {
+        pointFormat: '<b>{point.series.name}: {point.y} %</b><br/>',
+        shared: true
+    },
+    exporting: {
+        enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            marker: {
+                symbol: 'circle'
+            }
+        }
+    },
+    series: [{
+        name: 'Obránce',
+        id: 'obr',
+        data: obrance2_data,
+        pointPlacement: 'on',
+        color: barvy[0]
+    }, {
+        name: 'Populace',
+        id: 'vsi',
+        data: vsichni2_data,
+        pointPlacement: 'on',
+        color: '#ccc',
+        dashStyle: 'dot'
+    }],
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                },
+                pane: {
+                    size: '70%'
+                }
+            }
+        }]
+    }
+});
+
+Highcharts.chart('obrance3', {
+    chart: {
+        polar: true,
+        type: 'line'
+    },
+    title: {
+        text: 'Spokojenost s institucemi',
+        x: 0
+    },
+    pane: {
+        size: '80%'
+    },
+    xAxis: {
+        title: {
+            text: ''
+        },
+        categories: vsichni3_kat,
+        tickmarkPlacement: 'on',
+        lineWidth: 0
+    },
+    yAxis: {
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        },
+        gridLineInterpolation: 'polygon',
+        lineWidth: 0,
+        min: 0,
+        max: 100
+    },
+    tooltip: {
+        pointFormat: '<b>{point.series.name}: {point.y} %</b><br/>',
+        shared: true
+    },
+    exporting: {
+        enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            marker: {
+                symbol: 'circle'
+            }
+        }
+    },
+    series: [{
+        name: 'Obránce',
+        id: 'obr',
+        data: obrance3_data,
+        pointPlacement: 'on',
+        color: barvy[0]
+    }, {
+        name: 'Populace',
+        id: 'vsi',
+        data: vsichni3_data,
+        pointPlacement: 'on',
+        color: '#ccc',
+        dashStyle: 'dot'
+    }],
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                },
+                pane: {
+                    size: '70%'
+                }
+            }
+        }]
+    }
+});
+
+Highcharts.chart('obrance4', {
+    chart: {
+        polar: true,
+        type: 'line'
+    },
+    title: {
+        text: 'Vliv EU na ČR',
+        x: 0
+    },
+    pane: {
+        size: '80%'
+    },
+    xAxis: {
+        title: {
+            text: ''
+        },
+        categories: vsichni4_kat,
+        tickmarkPlacement: 'on',
+        lineWidth: 0
+    },
+    yAxis: {
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        },
+        gridLineInterpolation: 'polygon',
+        lineWidth: 0,
+        min: 0,
+        max: 100
+    },
+    tooltip: {
+        pointFormat: '<b>{point.series.name}: {point.y} %</b><br/>',
+        shared: true
+    },
+    exporting: {
+        enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            marker: {
+                symbol: 'circle'
+            }
+        }
+    },
+    series: [{
+        name: 'Obránce',
+        id: 'obr',
+        data: obrance4_data,
+        pointPlacement: 'on',
+        color: barvy[0]
+    }, {
+        name: 'Populace',
+        id: 'vsi',
+        data: vsichni4_data,
+        pointPlacement: 'on',
+        color: '#ccc',
+        dashStyle: 'dot'
+    }],
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                },
+                pane: {
+                    size: '70%'
+                }
+            }
+        }]
+    }
+});
+
+Highcharts.chart('obrancepref', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Koho by volil?'
+    },
+    subtitle: {
+        text: 'do Poslanecké sněmovny PČR'
+    },
+    xAxis: {
+        title: {
+            text: ''
+        },
+        categories: vsichnipref_kat,
+    },
+    yAxis: {
+        title: {
+            text: 'podíl populace'
+        },
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        }
+    },
+    tooltip: {
+        pointFormat: '<b>{point.series.name}: {point.y} %</b><br/>',
+        shared: true
+    },
+    exporting: {
+        enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Obránce',
+        data: obrancepref_data,
+        color: barvy[0]
+    }, {
+        name: 'Populace',
+        data: vsichnipref_data,
+        color: '#ccc'
+    }]
+});
+
+</script>
+</html>
+
